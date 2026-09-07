@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    process.env.REDIRECT_URI
+    process.env.REDIRECT_URI || "http://localhost:3000/auth/callback"
 );
 
 // Helper function to get Sheets API client (sync — prefer getAuthedClient for write routes)
@@ -206,3 +206,4 @@ app.delete('/api/expenses/:spreadsheetId/:rowIndex', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
