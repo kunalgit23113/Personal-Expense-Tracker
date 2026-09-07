@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(cookieParser());
 app.use(express.static('public'));
+app.set('trust proxy', 1);
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -45,7 +46,7 @@ app.get('/auth/url', (req, res) => {
 app.get('/auth/callback', async (req, res) => {
     try {
         const { tokens } = await oauth2Client.getToken(req.query.code);
-        const cookieOpts = { httpOnly: true, sameSite: 'lax' };
+        const cookieOpts = { httpOnly: true, secure: true, sameSite: 'none' };
         res.cookie('access_token', tokens.access_token, cookieOpts);
         if (tokens.refresh_token) {
             res.cookie('refresh_token', tokens.refresh_token, cookieOpts);
@@ -83,7 +84,7 @@ const getAuthedClient = async (req, res) => {
         const tokenResponse = await oauth2Client.getAccessToken();
         const freshToken = typeof tokenResponse === 'string' ? tokenResponse : tokenResponse?.token;
         if (freshToken && freshToken !== accessToken) {
-            res.cookie('access_token', freshToken, { httpOnly: true, sameSite: 'lax' });
+            res.cookie('access_token', freshToken, { httpOnly: true, secure:true, sameSite: 'none' });
         }
     } catch (err) {
         if (!accessToken) throw new Error('Not authenticated');
