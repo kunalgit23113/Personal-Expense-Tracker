@@ -19,4 +19,4 @@ A full-stack web application that allows users to track their personal expenses 
 3. Create a `.env` file in the root directory and add your Google Cloud credentials:
 
 ## 🚀 Live Demo  
-👉 [Click here to view the app](https://personal-expense-tracker-three-nu.vercel.app)
+👉 [Click here to view the app](https://mudrasync.onrender.com)
