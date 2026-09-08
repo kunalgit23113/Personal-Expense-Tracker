@@ -1,4 +1,4 @@
-# Personal Expense Tracker
+# Personal Expense Tracker(MudraSync)
 
 A full-stack web application that allows users to track their personal expenses securely using their Google account and Google Sheets as the database.
 
